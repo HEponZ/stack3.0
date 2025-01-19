@@ -22,22 +22,20 @@ int main()
             {
                 stack.push(symbol);
             }
-            else if (symbol == ')' || symbol == ']' || symbol == '}')
+            else if (!stack.empty() && ((symbol == ')' && stack.top() == '(') ||
+                (symbol == ']' && stack.top() == '[') ||
+                (symbol == '}' && stack.top() == '{')))
             {
-
-                if (stack.top() == '(' || stack.top() == '[' || stack.top() == '{')
-                {
-                    stack.pop();
-                }
-                else
-                {
-                    throw logic_error("Скобок не хватает\n");
-                }
+                stack.pop();
+            }
+            else if(symbol == ')' || symbol == ']' || symbol == '}')
+            {
+                throw logic_error("Неверная расстановка скобок\n");
             }
         }
-        if (!stack.empty()) 
+        if (!stack.empty())
         {
-            throw logic_error("Скобок не хватает\n");
+            throw logic_error("Неверная расстановка скобок\n");
         }
         cout << "Все хорошо!\n";
     }
